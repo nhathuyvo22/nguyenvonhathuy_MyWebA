@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -12,15 +13,22 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return "Danh sách danh mục";
+        $list = DB::table('categories')
+            ->select('cateid', 'catename', 'slug', 'status', 'image')
+            ->where('status', 1)
+            ->orderBy('catename')
+            ->get();
+
+        return view('admin.categories.index', compact('list'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
+    // Hiển thị form
     public function create()
     {
-        return "Form thêm mới danh mục";
+        return view('admin.categories.create');
     }
 
     /**
@@ -28,7 +36,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        return "Xử lý thêm mới danh mục";
+        DB::table('categories')->insert([
+            'catename' => $request->catename,
+            'slug' => $request->slug
+        ]);
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BrandController extends Controller
 {
@@ -12,7 +13,12 @@ class BrandController extends Controller
      */
     public function index()
     {
-        //
+        $list = DB::table('brands')
+            ->select('id', 'brandname', 'slug', 'image', 'status')
+            ->orderBy('brandname')
+            ->get();
+
+        return view('admin.brands.index', compact('list'));
     }
 
     /**
@@ -20,7 +26,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.brands.create');
     }
 
     /**

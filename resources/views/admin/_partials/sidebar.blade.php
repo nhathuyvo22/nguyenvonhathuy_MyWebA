@@ -12,8 +12,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link text-white"
-                data-bs-toggle="collapse"
-                href="#categoryMenu">
+                data-bs-toggle="collapse" href="#categoryMenu">
                 <i class="bi bi-tags"></i>
                 Quản lý danh mục
                 <i class="bi bi-chevron-down float-end"></i>
@@ -21,23 +20,70 @@
             <div class="collapse" id="categoryMenu">
                 <ul class="nav flex-column ms-3">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">
+                        <a class="nav-link text-white" href="{{ route('admin.categories.index') }}">
                             Danh sách loại sản phẩm
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">
+                        <a class="nav-link text-white" href="{{ route('admin.categories.create') }}">
                             Thêm loại sản phẩm
                         </a>
                     </li>
                 </ul>
             </div>
         </li>
+
         <li class="nav-item">
-            <a class="nav-link text-white" href="#">
-                <i class="bi bi-box-seam"></i>
-                Sản phẩm
+            <a class="nav-link text-white"
+                data-bs-toggle="collapse" href="#brandMenu">
+                <i class="bi bi-award"></i>
+                Quản lý thương hiệu
+                <i class="bi bi-chevron-down float-end"></i>
             </a>
+            <div class="collapse" id="brandMenu">
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ route('admin.brands.index') }}">
+                            Danh sách thương hiệu
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ route('admin.brands.create') }}">
+                            Thêm thương hiệu
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-white" href="{{ route('admin.users.index') }}">
+                <i class="bi bi-people"></i>
+                Người dùng
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-white"
+                data-bs-toggle="collapse" href="#postMenu">
+                <i class="bi bi-award"></i>
+                Quản lý bài viết
+                <i class="bi bi-chevron-down float-end"></i>
+            </a>
+            <div class="collapse" id="postMenu">
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ route('admin.post.index') }}">
+                            Danh sách bài viết
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ route('admin.post.create') }}">
+                            Thêm bài viết
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </li>
     </ul>
 </div>
