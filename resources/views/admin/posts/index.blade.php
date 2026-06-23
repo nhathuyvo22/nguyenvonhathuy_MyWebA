@@ -14,9 +14,9 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($list as $index => $item)
+        @forelse($list as $item)
         <tr>
-            <td>{{ $index + 1 }}</td>
+            <td>{{ $list->firstItem() + $loop->index }}</td>
             <td>
                 @if($item->image)
                 <img src="{{ asset('images/' . $item->image) }}" width="50">
@@ -25,7 +25,7 @@
                 @endif
             </td>
             <td>{{ $item->title }}</td>
-            <td>{{ $item->fullname }}</td>
+            <td>{{ $item->user?->fullname }}</td>
             <td>
                 @if($item->status == 1)
                 <span class="badge bg-success">Hiển thị</span>
@@ -34,7 +34,16 @@
                 @endif
             </td>
         </tr>
-        @endforeach
+        @empty
+        <tr>
+            <td colspan="5" class="text-center">Không có dữ liệu</td>
+        </tr>
+        @endforelse
     </tbody>
 </table>
+
+<div class="d-flex justify-content-center">
+    {{ $list->links() }}
+</div>
+
 @endsection

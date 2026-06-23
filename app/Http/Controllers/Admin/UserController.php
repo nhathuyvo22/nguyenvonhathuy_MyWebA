@@ -5,19 +5,20 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\User;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+
+    public function index($limit = 10)
     {
-        $list = DB::table('users')
-            ->select('id', 'fullname', 'username', 'email', 'password')
+        $list = User::select('id', 'fullname', 'username', 'email', 'status')
             ->orderBy('fullname')
-            ->get();
+            ->paginate($limit);
 
         return view('admin.users.index', compact('list'));
     }
@@ -33,9 +34,19 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+   
+
     public function store(Request $request)
     {
-        //
+        User::create([
+            'fullname' => $request->fullname,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'status' => $request->status
+        ]);
+
+        return redirect()->route('admin.users.index');
     }
 
     /**

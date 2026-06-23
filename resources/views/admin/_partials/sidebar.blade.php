@@ -21,12 +21,12 @@
                 <ul class="nav flex-column ms-3">
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{ route('admin.categories.index') }}">
-                            Danh sách loại sản phẩm
+                            Danh sách danh mục
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{ route('admin.categories.create') }}">
-                            Thêm loại sản phẩm
+                            Thêm danh mục
                         </a>
                     </li>
                 </ul>
@@ -56,17 +56,34 @@
             </div>
         </li>
 
+        {{-- THÊM MỤC SẢN PHẨM --}}
         <li class="nav-item">
-            <a class="nav-link text-white" href="{{ route('admin.users.index') }}">
-                <i class="bi bi-people"></i>
-                Người dùng
+            <a class="nav-link text-white"
+                data-bs-toggle="collapse" href="#productMenu">
+                <i class="bi bi-box-seam"></i>
+                Quản lý sản phẩm
+                <i class="bi bi-chevron-down float-end"></i>
             </a>
+            <div class="collapse" id="productMenu">
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ route('admin.products.index') }}">
+                            Danh sách sản phẩm
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ route('admin.products.create') }}">
+                            Thêm sản phẩm
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </li>
 
         <li class="nav-item">
             <a class="nav-link text-white"
                 data-bs-toggle="collapse" href="#postMenu">
-                <i class="bi bi-award"></i>
+                <i class="bi bi-file-earmark-text"></i>
                 Quản lý bài viết
                 <i class="bi bi-chevron-down float-end"></i>
             </a>
@@ -84,6 +101,26 @@
                     </li>
                 </ul>
             </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-white"
+                data-bs-toggle="collapse" href="#userMenu">
+                <i class="bi bi-people"></i>
+                Quản lý người dùng
+                <i class="bi bi-chevron-down float-end"></i>
+            </a>
+            <div class="collapse" id="userMenu">
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ route('admin.users.index') }}">
+                            Danh sách người dùng
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        </a>
         </li>
     </ul>
 </div>

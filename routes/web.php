@@ -74,6 +74,7 @@
         Route::resource('brands', BrandController::class);
         Route::resource('users', UserController::class);
         Route::resource('post', PostController::class);
+        Route::resource('products', ProductController::class);
     });
 
     Route::get('/test1', [ProductController::class, 'test1']);

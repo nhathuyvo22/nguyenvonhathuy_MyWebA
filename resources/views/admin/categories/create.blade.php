@@ -1,12 +1,12 @@
 @extends('admin.layouts.admin')
 @section('title','Thêm loại sản phẩm')
 @section('content')
-<h2 class="mb-3">THÊM LOẠI SẢN PHẨM</h2>
+<h2 class="mb-3">THÊM DANH MỤC</h2>
 
 <form action="{{ route('admin.categories.store') }}" method="POST">
     @csrf
     <div class="mb-3">
-        <label>Tên loại sản phẩm</label>
+        <label>Tên danh mục</label>
         <input type="text" name="catename" class="form-control">
     </div>
     <div class="mb-3">

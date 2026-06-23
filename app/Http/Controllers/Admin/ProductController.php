@@ -4,15 +4,22 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function index($limit = 10)
     {
-        //
+        $list = Product::with([
+            'category:cateid,catename',
+            'brand:id,brandname'
+        ])
+            ->select('id', 'productname', 'price', 'image', 'status', 'cateid', 'brandid')
+            ->orderBy('productname')
+            ->paginate($limit);
+
+        return view('admin.products.index', compact('list'));
     }
 
     /**

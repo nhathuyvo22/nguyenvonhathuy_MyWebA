@@ -1,7 +1,7 @@
 @extends('admin.layouts.admin')
 @section('title','Loại sản phẩm')
 @section('content')
-<h2 class="mb-3">DANH SÁCH LOẠI SẢN PHẨM</h2>
+<h2 class="mb-3">DANH SÁCH DANH MỤC</h2>
 <a href="{{ route('admin.categories.create') }}" class="btn btn-success mb-3">
     + Thêm mới
 </a>
@@ -18,9 +18,9 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($list as $index => $item)
+        @forelse($list as $item)
         <tr>
-            <td>{{ $index + 1 }}</td>
+            <td>{{ $list->firstItem() + $loop->index }}</td>
             <td>
                 @if($item->image)
                 <img src="{{ asset('images/' . $item->image) }}" width="50">
@@ -47,8 +47,16 @@
                 </form>
             </td>
         </tr>
-        @endforeach
+        @empty
+        <tr>
+            <td colspan="7" class="text-center">Không có dữ liệu</td>
+        </tr>
+        @endforelse
     </tbody>
 </table>
+
+<div class="d-flex justify-content-center">
+    {{ $list->links() }}
+</div>
 
 @endsection
