@@ -9,65 +9,63 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
-
     public function index()
     {
-        $list = DB::table('categories')
-            ->select('cateid', 'catename', 'slug', 'status', 'image')
-            ->where('status', 1)
+        $list = Category::select('cateid', 'catename', 'slug', 'status', 'image')
             ->orderBy('catename')
-            ->paginate();
+            ->paginate(10);
 
         return view('admin.categories.index', compact('list'));
     }
-
 
     public function create()
     {
         return view('admin.categories.create');
     }
 
-
     public function store(Request $request)
     {
-        Category::create([
-            'catename' => $request->catename,
-            'slug' => $request->slug,
-            'status' => $request->status
-        ]);
+        try {
+            Category::create([
+                'catename' => $request->catename,
+                'slug'     => $request->slug,
+                'status'   => $request->status
+            ]);
 
-        return redirect()->route('admin.categories.index');
+            return redirect()->route('admin.categories.index')
+                ->with('success', 'Thêm danh mục thành công');
+        } catch (\Exception $e) {
+            return back()->withInput()->with('error', $e->getMessage());
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        return "Chi tiết danh mục có id = $id";
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        return "Form sửa danh mục có id = $id";
+        $item = Category::where('cateid', $id)->first();
+        return view('admin.categories.edit', compact('item'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        return "Xử lý cập nhật danh mục có id = $id";
+        try {
+            $category = Category::where('cateid', $id)->first();
+            $category->update([
+                'catename' => $request->catename,
+                'slug'     => $request->slug,
+                'status'   => $request->status
+            ]);
+
+            return redirect()->route('admin.categories.index')
+                ->with('success', 'Cập nhật danh mục thành công');
+        } catch (\Exception $e) {
+            return back()->withInput()->with('error', $e->getMessage());
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        return "Xử lý xóa danh mục có id = $id";
+        DB::table('categories')->where('cateid', $id)->delete();
+        return redirect()->route('admin.categories.index')
+            ->with('success', 'Xóa danh mục thành công');
     }
 }

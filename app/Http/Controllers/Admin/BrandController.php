@@ -4,17 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\Brands;
-
 
 class BrandController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-
-
     public function index($limit = 10)
     {
         $list = Brands::select('id', 'brandname', 'slug', 'image', 'status')
@@ -24,58 +17,54 @@ class BrandController extends Controller
         return view('admin.brands.index', compact('list'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.brands.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-
-
     public function store(Request $request)
     {
-        Brands::create([
-            'brandname' => $request->brandname,
-            'slug' => $request->slug,
-            'status' => $request->status
-        ]);
+        try {
+            Brands::create([
+                'brandname' => $request->brandname,
+                'slug'      => $request->slug,
+                'status'    => $request->status
+            ]);
 
-        return redirect()->route('admin.brands.index');
-    }
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+            return redirect()->route('admin.brands.index')
+                ->with('success', 'Thêm thương hiệu thành công');
+        } catch (\Exception $e) {
+            return back()->withInput()->with('error', $e->getMessage());
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        $item = Brands::find($id);
+        return view('admin.brands.edit', compact('item'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $brand = Brands::find($id);
+            $brand->update([
+                'brandname' => $request->brandname,
+                'slug'      => $request->slug,
+                'status'    => $request->status
+            ]);
+
+            return redirect()->route('admin.brands.index')
+                ->with('success', 'Cập nhật thương hiệu thành công');
+        } catch (\Exception $e) {
+            return back()->withInput()->with('error', $e->getMessage());
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        Brands::find($id)->delete();
+        return redirect()->route('admin.brands.index')
+            ->with('success', 'Xóa thương hiệu thành công');
     }
 }

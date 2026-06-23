@@ -3,6 +3,12 @@
 @section('content')
 <h2 class="mb-3">DANH SÁCH SẢN PHẨM</h2>
 
+@if(session('success'))
+<div class="alert alert-success">{{ session('success') }}</div>
+@endif
+
+<a href="{{ route('admin.products.create') }}" class="btn btn-success mb-3">+ Thêm mới</a>
+
 <table class="table table-bordered table-hover table-striped">
     <thead class="table-dark">
         <tr>
@@ -13,6 +19,7 @@
             <th>Loại</th>
             <th>Thương hiệu</th>
             <th>Trạng thái</th>
+            <th>Thao tác</th>
         </tr>
     </thead>
     <tbody>
@@ -37,10 +44,23 @@
                 <span class="badge bg-danger">Ẩn</span>
                 @endif
             </td>
+            <td class="d-flex gap-1">
+                <a href="{{ route('admin.products.edit', $item->id) }}" class="btn btn-warning btn-sm">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
+                <form action="{{ route('admin.products.destroy', $item->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Bạn có chắc muốn xóa?')">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </form>
+            </td>
         </tr>
         @empty
         <tr>
-            <td colspan="7" class="text-center">Không có dữ liệu</td>
+            <td colspan="8" class="text-center">Không có dữ liệu</td>
         </tr>
         @endforelse
     </tbody>

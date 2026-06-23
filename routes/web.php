@@ -29,13 +29,13 @@
     Route::delete('admin/category/{id}', [CategoryController::class, 'destroy']);
 
     // Product
-    Route::get('admin/product', [ProductController::class, 'index']);
-    Route::get('admin/product/create', [ProductController::class, 'create']);
-    Route::post('admin/product', [ProductController::class, 'store']);
-    Route::get('admin/product/{id}', [ProductController::class, 'show']);
-    Route::get('admin/product/{id}/edit', [ProductController::class, 'edit']);
-    Route::put('admin/product/{id}', [ProductController::class, 'update']);
-    Route::delete('admin/product/{id}', [ProductController::class, 'destroy']);
+    Route::get('admin/products', [ProductController::class, 'index']);
+    Route::get('admin/products/create', [ProductController::class, 'create']);
+    Route::post('admin/products', [ProductController::class, 'store']);
+    Route::get('admin/products/{id}', [ProductController::class, 'show']);
+    Route::get('admin/products/{id}/edit', [ProductController::class, 'edit']);
+    Route::put('admin/products/{id}', [ProductController::class, 'update']);
+    Route::delete('admin/products/{id}', [ProductController::class, 'destroy']);
 
     // Brand
     Route::get('admin/brand', [BrandController::class, 'index']);
