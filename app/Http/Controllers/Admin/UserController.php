@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Http\Requests\Admin\UserRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -22,21 +24,27 @@ class UserController extends Controller
         return view('admin.users.create');
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         try {
             User::create([
                 'fullname' => $request->fullname,
                 'username' => $request->username,
                 'email'    => $request->email,
-                'password' => bcrypt($request->password),
-                'status'   => $request->status
+                'password' => Hash::make($request->password),
+                'phone'    => $request->phone,
+                'address'  => $request->address,
+                'status'   => $request->status,
+                'gender'   => $request->gender,
+                'birthday' => $request->birthday,
+                'role'     => $request->role,
             ]);
-
             return redirect()->route('admin.users.index')
-                ->with('success', 'Thêm người dùng thành công');
+                ->with('success', 'Thêm thành công.');
         } catch (\Exception $e) {
-            return back()->withInput()->with('error', $e->getMessage());
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Thêm thất bại.');
         }
     }
 
@@ -46,21 +54,25 @@ class UserController extends Controller
         return view('admin.users.edit', compact('item'));
     }
 
-    public function update(Request $request, string $id)
+
+   
+
+    public function update(UserRequest $request, string $id)
     {
         try {
-            $user = User::find($id);
+            $user = User::findOrFail($id);
             $user->update([
                 'fullname' => $request->fullname,
                 'username' => $request->username,
                 'email'    => $request->email,
-                'status'   => $request->status
+                'status'   => $request->status,
             ]);
-
             return redirect()->route('admin.users.index')
-                ->with('success', 'Cập nhật người dùng thành công');
+                ->with('success', 'Cập nhật thành công.');
         } catch (\Exception $e) {
-            return back()->withInput()->with('error', $e->getMessage());
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Cập nhật thất bại.');
         }
     }
 

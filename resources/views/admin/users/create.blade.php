@@ -3,9 +3,7 @@
 @section('content')
 <h2 class="mb-3">THÊM NGƯỜI DÙNG</h2>
 
-@if(session('error'))
-<div class="alert alert-danger">{{ session('error') }}</div>
-@endif
+<x-admin.alert />
 
 <form action="{{ route('admin.users.store') }}" method="POST">
     @csrf

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Brands;
+use App\Http\Requests\Admin\BrandRequest;
 
 class BrandController extends Controller
 {
@@ -22,13 +23,17 @@ class BrandController extends Controller
         return view('admin.brands.create');
     }
 
-    public function store(Request $request)
+
+
+    public function store(BrandRequest $request)
     {
         try {
             Brands::create([
                 'brandname' => $request->brandname,
                 'slug'      => $request->slug,
-                'status'    => $request->status
+                'status'    => $request->status,
+                'description' => $request->description,
+
             ]);
 
             return redirect()->route('admin.brands.index')
@@ -44,7 +49,7 @@ class BrandController extends Controller
         return view('admin.brands.edit', compact('item'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(BrandRequest $request, string $id)
     {
         try {
             $brand = Brands::find($id);
@@ -60,6 +65,7 @@ class BrandController extends Controller
             return back()->withInput()->with('error', $e->getMessage());
         }
     }
+
 
     public function destroy(string $id)
     {

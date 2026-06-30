@@ -25,11 +25,40 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate(
+            [
+                'catename' => 'required|min:3|max:100|unique:categories,catename',
+                'slug'     => [
+                    'required',
+                    'min:5',
+                    'max:150',
+                    'unique:categories,slug',
+                    'regex:/^[a-z0-9-]+$/'
+                ],
+                'status' => 'required|in:0,1'
+            ],
+            [
+                'required'   => ':attribute không được để trống.',
+                'min'        => ':attribute phải từ :min ký tự trở lên.',
+                'max'        => ':attribute không vượt quá :max ký tự.',
+                'unique'     => ':attribute đã tồn tại.',
+                'slug.regex' => ':attribute chỉ được chứa chữ thường, số và dấu gạch ngang (-).',
+                'status.in'  => ':attribute không hợp lệ.'
+            ],
+            [
+                'catename' => 'Tên loại',
+                'slug'     => 'Đường dẫn (Slug)',
+                'status'   => 'Trạng thái'
+            ]
+        );
+
         try {
             Category::create([
-                'catename' => $request->catename,
-                'slug'     => $request->slug,
-                'status'   => $request->status
+                'catename'   => $request->catename,
+                'slug'       => $request->slug,
+                'sort_order' => $request->sort_order ?? 0,
+                'description' => $request->description,
+                'status'     => $request->status
             ]);
 
             return redirect()->route('admin.categories.index')

@@ -90,12 +90,12 @@
             <div class="collapse" id="postMenu">
                 <ul class="nav flex-column ms-3">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('admin.post.index') }}">
+                        <a class="nav-link text-white" href="{{ route('admin.posts.index') }}">
                             Danh sách bài viết
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('admin.post.create') }}">
+                        <a class="nav-link text-white" href="{{ route('admin.posts.create') }}">
                             Thêm bài viết
                         </a>
                     </li>
@@ -115,6 +115,11 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{ route('admin.users.index') }}">
                             Danh sách người dùng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ route('admin.users.create') }}">
+                            Thêm người dùng
                         </a>
                     </li>
                 </ul>

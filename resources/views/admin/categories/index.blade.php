@@ -2,6 +2,9 @@
 @section('title','Loại sản phẩm')
 @section('content')
 <h2 class="mb-3">DANH SÁCH DANH MỤC</h2>
+@if(session('success'))
+<div class="alert alert-success">{{ session('success') }}</div>
+@endif
 <a href="{{ route('admin.categories.create') }}" class="btn btn-success mb-3">
     + Thêm mới
 </a>
@@ -38,12 +41,17 @@
                 <span class="badge bg-danger">Ẩn</span>
                 @endif
             </td>
-            <td>
-                <a href="{{ route('admin.categories.edit', $item->cateid) }}" class="btn btn-warning btn-sm">Sửa</a>
+            <td class="d-flex gap-1">
+                <a href="{{ route('admin.categories.edit', $item->cateid) }}" class="btn btn-warning btn-sm">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
                 <form action="{{ route('admin.categories.destroy', $item->cateid) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                    <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Bạn có chắc muốn xóa?')">
+                        <i class="bi bi-trash"></i>
+                    </button>
                 </form>
             </td>
         </tr>

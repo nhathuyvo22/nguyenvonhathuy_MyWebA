@@ -2,7 +2,12 @@
 @section('title','Thương hiệu')
 @section('content')
 <h2 class="mb-3">DANH SÁCH THƯƠNG HIỆU</h2>
-
+@if(session('success'))
+<div class="alert alert-success">{{ session('success') }}</div>
+@endif
+<a href="{{ route('admin.brands.create') }}" class="btn btn-success mb-3">
+    + Thêm mới
+</a>
 <table class="table table-bordered table-hover table-striped">
     <thead class="table-dark">
         <tr>

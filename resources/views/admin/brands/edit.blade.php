@@ -34,5 +34,13 @@
     <button type="submit" class="btn btn-primary">Cập nhật</button>
     <a href="{{ route('admin.brands.index') }}" class="btn btn-secondary">Quay lại</a>
 </form>
-
+@if($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 @endsection

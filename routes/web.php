@@ -73,7 +73,7 @@
         Route::resource('categories', CategoryController::class);
         Route::resource('brands', BrandController::class);
         Route::resource('users', UserController::class);
-        Route::resource('post', PostController::class);
+        Route::resource('posts', PostController::class);
         Route::resource('products', ProductController::class);
     });
 
