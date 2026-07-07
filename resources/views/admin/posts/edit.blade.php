@@ -31,12 +31,14 @@
         <textarea name="content" class="form-control" rows="6">{{ old('content', $post->content) }}</textarea>
         @error('content')<span class="text-danger">{{ $message }}</span>@enderror
     </div>
-    <div class="mb-3">
-        <label>Hình ảnh hiện tại</label><br>
-        @if($post->image)
-        <img src="{{ asset('storage/'.$post->image) }}" width="120" class="mb-2"><br>
-        @endif
-        <input type="file" name="image" class="form-control">
+    <div class="mb-3 img-group">
+        <label>Hình ảnh</label>
+        <div class="img-preview mt-2">
+            @if($post->image)
+            <img src="{{ asset('storage/' . $post->image) }}" width="120" class="img-thumbnail">
+            @endif
+        </div>
+        <input type="file" name="image" class="form-control img-input">
     </div>
     <div class="mb-3">
         <label>Người đăng</label>

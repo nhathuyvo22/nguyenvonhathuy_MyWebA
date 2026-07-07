@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use App\Models\Post;
 use App\Http\Requests\Admin\PostRequest;
 use App\Models\User;
@@ -39,13 +41,21 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         try {
+            $imageName = null;
+
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $imageName = Str::slug($request->title) . '-' . time() . '.' . $file->extension();
+                $file->storeAs('posts', $imageName, 'public');
+            }
+
             Post::create([
                 'title'   => $request->title,
                 'slug'    => $request->slug,
                 'content' => $request->content,
                 'status'  => $request->status,
                 'user_id' => $request->user_id,
-                // image xử lý riêng nếu có upload file
+                'image'   => $imageName,
             ]);
             return redirect()->route('admin.posts.index')
                 ->with('success', 'Thêm thành công.');
@@ -77,12 +87,25 @@ class PostController extends Controller
     {
         try {
             $post = Post::findOrFail($id);
+            $imageName = $post->image;
+
+            if ($request->hasFile('image')) {
+                if ($imageName) {
+                    Storage::disk('public')->delete('posts/' . $imageName);
+                }
+
+                $file = $request->file('image');
+                $imageName = Str::slug($request->title) . '-' . time() . '.' . $file->extension();
+                $file->storeAs('posts', $imageName, 'public');
+            }
+
             $post->update([
                 'title'   => $request->title,
                 'slug'    => $request->slug,
                 'content' => $request->content,
                 'status'  => $request->status,
                 'user_id' => $request->user_id,
+                'image'   => $imageName,
             ]);
             return redirect()->route('admin.posts.index')
                 ->with('success', 'Cập nhật thành công.');

@@ -75,6 +75,8 @@
         Route::resource('users', UserController::class);
         Route::resource('posts', PostController::class);
         Route::resource('products', ProductController::class);
+        Route::delete('products/images/{id}', [ProductController::class, 'destroyImage'])
+            ->name('products.images.destroy');
     });
 
     Route::get('/test1', [ProductController::class, 'test1']);

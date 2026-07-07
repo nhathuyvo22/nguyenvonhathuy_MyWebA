@@ -14,7 +14,7 @@ class ProductRequest extends FormRequest
 
     public function rules(): array
     {
-        $id = $this->route('product');
+        $id = $this->route('id');
         return [
             'productname' => [
                 'required',
@@ -41,11 +41,14 @@ class ProductRequest extends FormRequest
                 'required',
                 'numeric',
                 'min:0',
-                'lte:price', // không được lớn hơn price
+                'lte:price',
             ],
             'status'  => 'required|in:0,1',
             'cateid' => 'required|exists:categories,cateid',
             'brandid' => 'nullable|exists:brands,id',
+            'img' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'imgs' => 'nullable|array',
+            'imgs.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
             'description' => [
                 'nullable',
                 'regex:/^[^@!$\^]*$/', // không chứa ký tự đặc biệt
@@ -68,6 +71,13 @@ class ProductRequest extends FormRequest
             'brandid.exists'        => ':attribute không tồn tại.',
             'pricediscount.lte'     => ':attribute không được lớn hơn giá gốc.',
             'description.regex'     => ':attribute không được chứa ký tự đặc biệt (@, !, $, ^).',
+            'img.image'             => 'Ảnh chính phải là file hình ảnh.',
+            'img.mimes'             => 'Ảnh chính chỉ chấp nhận jpg, jpeg, png, webp.',
+            'img.max'               => 'Ảnh chính tối đa 2MB.',
+            'imgs.array'            => 'Ảnh phụ phải là một danh sách.',
+            'imgs.*.image'          => 'Ảnh phụ phải là file hình ảnh.',
+            'imgs.*.mimes'          => 'Ảnh phụ chỉ chấp nhận jpg, jpeg, png, webp.',
+            'imgs.*.max'            => 'Ảnh phụ tối đa 2MB.',
         ];
     }
 
@@ -82,6 +92,8 @@ class ProductRequest extends FormRequest
             'cateid'       => 'Loại sản phẩm',
             'brandid'      => 'Thương hiệu',
             'description'  => 'Mô tả',
+            'img'          => 'Ảnh chính',
+            'imgs'         => 'Ảnh phụ',
         ];
     }
 }

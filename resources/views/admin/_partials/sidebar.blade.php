@@ -1,8 +1,21 @@
+<style>
+    .admin-sidebar .collapse:not(.show) {
+        display: none;
+    }
+
+    .admin-sidebar .collapsing {
+        height: 0;
+        overflow: hidden;
+        transition: height 0.35s ease;
+    }
+</style>
+
 <div class="admin-sidebar bg-dark text-white p-3 vh-100">
     <h4 class="mb-4">
         <i class="bi bi-speedometer2"></i>
         Admin
     </h4>
+
     <ul class="nav flex-column">
         <li class="nav-item">
             <a class="nav-link text-white" href="{{ route('admin.home') }}">
@@ -10,12 +23,16 @@
                 Dashboard
             </a>
         </li>
+
         <li class="nav-item">
-            <a class="nav-link text-white"
-                data-bs-toggle="collapse" href="#categoryMenu">
-                <i class="bi bi-tags"></i>
-                Quản lý danh mục
-                <i class="bi bi-chevron-down float-end"></i>
+            <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                href="#categoryMenu"
+                data-bs-toggle="collapse"
+                role="button"
+                aria-expanded="false"
+                aria-controls="categoryMenu">
+                <span><i class="bi bi-tags"></i> Quản lý danh mục</span>
+                <i class="bi bi-chevron-down"></i>
             </a>
             <div class="collapse" id="categoryMenu">
                 <ul class="nav flex-column ms-3">
@@ -34,11 +51,14 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link text-white"
-                data-bs-toggle="collapse" href="#brandMenu">
-                <i class="bi bi-award"></i>
-                Quản lý thương hiệu
-                <i class="bi bi-chevron-down float-end"></i>
+            <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                href="#brandMenu"
+                data-bs-toggle="collapse"
+                role="button"
+                aria-expanded="false"
+                aria-controls="brandMenu">
+                <span><i class="bi bi-award"></i> Quản lý thương hiệu</span>
+                <i class="bi bi-chevron-down"></i>
             </a>
             <div class="collapse" id="brandMenu">
                 <ul class="nav flex-column ms-3">
@@ -56,13 +76,15 @@
             </div>
         </li>
 
-        {{-- THÊM MỤC SẢN PHẨM --}}
         <li class="nav-item">
-            <a class="nav-link text-white"
-                data-bs-toggle="collapse" href="#productMenu">
-                <i class="bi bi-box-seam"></i>
-                Quản lý sản phẩm
-                <i class="bi bi-chevron-down float-end"></i>
+            <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                href="#productMenu"
+                data-bs-toggle="collapse"
+                role="button"
+                aria-expanded="false"
+                aria-controls="productMenu">
+                <span><i class="bi bi-box-seam"></i> Quản lý sản phẩm</span>
+                <i class="bi bi-chevron-down"></i>
             </a>
             <div class="collapse" id="productMenu">
                 <ul class="nav flex-column ms-3">
@@ -81,11 +103,14 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link text-white"
-                data-bs-toggle="collapse" href="#postMenu">
-                <i class="bi bi-file-earmark-text"></i>
-                Quản lý bài viết
-                <i class="bi bi-chevron-down float-end"></i>
+            <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                href="#postMenu"
+                data-bs-toggle="collapse"
+                role="button"
+                aria-expanded="false"
+                aria-controls="postMenu">
+                <span><i class="bi bi-file-earmark-text"></i> Quản lý bài viết</span>
+                <i class="bi bi-chevron-down"></i>
             </a>
             <div class="collapse" id="postMenu">
                 <ul class="nav flex-column ms-3">
@@ -104,11 +129,14 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link text-white"
-                data-bs-toggle="collapse" href="#userMenu">
-                <i class="bi bi-people"></i>
-                Quản lý người dùng
-                <i class="bi bi-chevron-down float-end"></i>
+            <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                href="#userMenu"
+                data-bs-toggle="collapse"
+                role="button"
+                aria-expanded="false"
+                aria-controls="userMenu">
+                <span><i class="bi bi-people"></i> Quản lý người dùng</span>
+                <i class="bi bi-chevron-down"></i>
             </a>
             <div class="collapse" id="userMenu">
                 <ul class="nav flex-column ms-3">
@@ -124,8 +152,6 @@
                     </li>
                 </ul>
             </div>
-        </li>
-        </a>
         </li>
     </ul>
 </div>

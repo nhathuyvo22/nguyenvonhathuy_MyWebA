@@ -8,7 +8,17 @@
     <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
 
-    <form action="{{ route('admin.products.store') }}" method="POST">
+    @if($errors->any())
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+    <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-md-6">
@@ -66,6 +76,22 @@
                     <input type="radio" class="btn-check" name="status" id="inactive" value="0"
                         {{ old('status', 1) == 0 ? 'checked' : '' }}>
                     <label class="btn btn-outline-danger" for="inactive">Ẩn</label>
+                </div>
+                <div class="mb-3 img-group">
+                    <label class="form-label">Hình ảnh chính</label>
+                    <input type="file" name="img" class="form-control img-input">
+                    <div class="img-preview mt-2"></div>
+                    @error('img')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-3 img-group">
+                    <label class="form-label">Hình ảnh phụ</label>
+                    <input type="file" name="imgs[]" class="form-control img-input" multiple>
+                    <div class="img-preview mt-2"></div>
+                    @error('imgs')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Mô tả sản phẩm</label>

@@ -34,6 +34,7 @@ class PostRequest extends FormRequest
             'content'  => 'required|min:10',
             'status'   => 'required|in:0,1',
             'user_id'  => 'required|exists:users,id',
+            'image'    => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ];
     }
 
@@ -48,6 +49,9 @@ class PostRequest extends FormRequest
             'slug.regex'     => ':attribute chỉ được chứa chữ thường, số, dấu _ và dấu -.',
             'status.in'      => ':attribute không hợp lệ.',
             'user_id.exists' => ':attribute không tồn tại.',
+            'image.image'    => 'Tệp tải lên phải là hình ảnh.',
+            'image.mimes'    => 'Chỉ chấp nhận ảnh jpg, jpeg, png, webp.',
+            'image.max'      => 'Kích thước ảnh tối đa là 2MB.',
         ];
     }
 
@@ -59,6 +63,7 @@ class PostRequest extends FormRequest
             'content' => 'Nội dung',
             'status'  => 'Trạng thái',
             'user_id' => 'Người đăng',
+            'image'   => 'Hình ảnh',
         ];
     }
 }

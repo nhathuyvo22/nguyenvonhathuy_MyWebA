@@ -22,9 +22,10 @@
         <textarea name="content" class="form-control" rows="6">{{ old('content') }}</textarea>
         @error('content')<span class="text-danger">{{ $message }}</span>@enderror
     </div>
-    <div class="mb-3">
+    <div class="mb-3 img-group">
         <label>Hình ảnh</label>
-        <input type="file" name="image" class="form-control">
+        <input type="file" name="image" class="form-control img-input">
+        <div class="img-preview mt-2"></div>
     </div>
     <div class="mb-3">
         <label>Người đăng</label>

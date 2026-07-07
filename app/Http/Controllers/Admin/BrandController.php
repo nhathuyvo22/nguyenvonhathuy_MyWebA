@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Brands;
 use App\Http\Requests\Admin\BrandRequest;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class BrandController extends Controller
 {
@@ -25,21 +27,38 @@ class BrandController extends Controller
 
 
 
+
+
     public function store(BrandRequest $request)
     {
         try {
-            Brands::create([
-                'brandname' => $request->brandname,
-                'slug'      => $request->slug,
-                'status'    => $request->status,
-                'description' => $request->description,
 
+            $fileName = null;
+            if ($request->hasFile('img')) {
+                $file = $request->file('img');
+                $fileName = Str::slug($request->brandname)
+                    . '-' . time()
+                    . '.' . $file->extension();
+
+                $file->storeAs('brands', $fileName, 'public');
+            }
+
+            Brands::create([
+                'brandname'   => $request->brandname,
+                'slug'        => $request->slug,
+                'status'      => $request->status,
+                'description' => $request->description,
+                'image'       => $fileName,
             ]);
 
-            return redirect()->route('admin.brands.index')
-                ->with('success', 'Thêm thương hiệu thành công');
+            return redirect()
+                ->route('admin.brands.index')
+                ->with('success', 'Thêm thành công.');
         } catch (\Exception $e) {
-            return back()->withInput()->with('error', $e->getMessage());
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Thêm thất bại.');
         }
     }
 
@@ -49,14 +68,35 @@ class BrandController extends Controller
         return view('admin.brands.edit', compact('item'));
     }
 
+
     public function update(BrandRequest $request, string $id)
     {
         try {
-            $brand = Brands::find($id);
+            $brand = Brands::findOrFail($id);
+
+            // Giữ ảnh cũ
+            $fileName = $brand->image;
+
+            // Nếu có chọn ảnh mới
+            if ($request->hasFile('img')) {
+                // Xóa ảnh cũ (nếu có)
+                if ($fileName) {
+                    Storage::disk('public')->delete('brands/' . $brand->image);
+                }
+                // Upload ảnh mới
+                $file = $request->file('img');
+                $fileName = Str::slug($request->brandname)
+                    . '-' . time()
+                    . '.' . $file->extension();
+                $file->storeAs('brands', $fileName, 'public');
+            }
+
             $brand->update([
-                'brandname' => $request->brandname,
-                'slug'      => $request->slug,
-                'status'    => $request->status
+                'brandname'   => $request->brandname,
+                'slug'        => $request->slug,
+                'status'      => $request->status,
+                'description' => $request->description,
+                'image'       => $fileName,
             ]);
 
             return redirect()->route('admin.brands.index')

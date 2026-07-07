@@ -16,6 +16,7 @@
             <th>Tên thương hiệu</th>
             <th>Slug</th>
             <th>Trạng thái</th>
+            <th>Chức năng</th>
         </tr>
     </thead>
     <tbody>
@@ -24,9 +25,9 @@
             <td>{{ $index + 1 }}</td>
             <td>
                 @if($item->image)
-                <img src="{{ asset('images/' . $item->image) }}" width="50">
+                <img src="{{ asset('storage/brands/'. $item->image) }}" width="80" class="img-thumbnail">
                 @else
-                <img src="{{ asset('images/default.png') }}" width="50">
+                <img src="{{ asset('images/default.png') }}" width="80" class="img-thumbnail">
                 @endif
             </td>
             <td>{{ $item->brandname }}</td>
@@ -38,6 +39,20 @@
                 <span class="badge bg-danger">Ẩn</span>
                 @endif
             </td>
+            <td class="d-flex gap-1">
+                <a href="{{ route('admin.brands.edit', $item->id) }}" class="btn btn-warning btn-sm">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
+                <form action="{{ route('admin.brands.destroy', $item->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Bạn có chắc muốn xóa?')">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </form>
+            </td>
+
         </tr>
         @endforeach
     </tbody>
