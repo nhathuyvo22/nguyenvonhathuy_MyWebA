@@ -18,13 +18,13 @@
 
     <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link text-white" href="{{ route('admin.home') }}">
+            <a class="nav-link text-white" href="{{ route('admin.dashboard') }}">
                 <i class="bi bi-house-door"></i>
                 Dashboard
             </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item has-submenu">
             <a class="nav-link text-white d-flex justify-content-between align-items-center"
                 href="#categoryMenu"
                 data-bs-toggle="collapse"
@@ -50,7 +50,7 @@
             </div>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item has-submenu">
             <a class="nav-link text-white d-flex justify-content-between align-items-center"
                 href="#brandMenu"
                 data-bs-toggle="collapse"
@@ -76,7 +76,7 @@
             </div>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item has-submenu">
             <a class="nav-link text-white d-flex justify-content-between align-items-center"
                 href="#productMenu"
                 data-bs-toggle="collapse"
@@ -102,7 +102,7 @@
             </div>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item has-submenu">
             <a class="nav-link text-white d-flex justify-content-between align-items-center"
                 href="#postMenu"
                 data-bs-toggle="collapse"
@@ -128,7 +128,7 @@
             </div>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item has-submenu">
             <a class="nav-link text-white d-flex justify-content-between align-items-center"
                 href="#userMenu"
                 data-bs-toggle="collapse"
@@ -155,3 +155,28 @@
         </li>
     </ul>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.admin-sidebar .has-submenu').forEach(function(item) {
+            const toggle = item.querySelector('[data-bs-toggle="collapse"]');
+            const collapse = item.querySelector('.collapse');
+
+            if (!toggle || !collapse) {
+                return;
+            }
+
+            const bsCollapse = bootstrap.Collapse.getOrCreateInstance(collapse, {
+                toggle: false
+            });
+
+            item.addEventListener('mouseenter', function() {
+                bsCollapse.show();
+            });
+
+            item.addEventListener('mouseleave', function() {
+                bsCollapse.hide();
+            });
+        });
+    });
+</script>

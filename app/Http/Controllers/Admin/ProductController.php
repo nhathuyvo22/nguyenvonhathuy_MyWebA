@@ -68,7 +68,7 @@ class ProductController extends Controller
                 'status'        => $request->status,
                 'image'         => $imageName,
             ]);
-
+            //
             if ($request->hasFile('imgs')) {
                 $i = 1;
                 $time = time();
@@ -232,15 +232,5 @@ class ProductController extends Controller
             }
             return back()->withInput()->with('error', $e->getMessage());
         }
-    }
-
-    public function test1()
-    {
-        return redirect()->route('admin.home');
-    }
-
-    public function test2()
-    {
-        return redirect('/admin/dashboard');
     }
 }

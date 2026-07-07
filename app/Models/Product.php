@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Brands;
+use App\Models\ProductImage;
 
 class Product extends Model
 {
