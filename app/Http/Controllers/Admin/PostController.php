@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Post;
@@ -121,6 +120,52 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            Post::findOrFail($id)->delete();
+            return redirect()->route('admin.posts.index')
+                ->with('success', 'Xóa bài viết thành công');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.posts.index')
+                ->with('error', 'Xóa bài viết thất bại');
+        }
+    }
+    public function trash()
+    {
+        $list = Post::onlyTrashed()
+            ->with(['user:id,fullname'])
+            ->select('id', 'title', 'image', 'status', 'user_id')
+            ->orderBy('title')
+            ->paginate(10);
+
+        return view('admin.posts.trash', compact('list'));
+    }
+
+    public function restore($id)
+    {
+        try {
+            Post::onlyTrashed()->findOrFail($id)->restore();
+            return redirect()->route('admin.posts.trash')
+                ->with('success', 'Khôi phục thành công.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Khôi phục thất bại.');
+        }
+    }
+
+    public function forceDelete($id)
+    {
+        try {
+            $post = Post::onlyTrashed()->findOrFail($id);
+
+            if ($post->image) {
+                Storage::disk('public')->delete('posts/' . $post->image);
+            }
+
+            $post->forceDelete();
+
+            return redirect()->route('admin.posts.trash')
+                ->with('success', 'Xóa vĩnh viễn thành công.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Xóa thất bại.');
+        }
     }
 }

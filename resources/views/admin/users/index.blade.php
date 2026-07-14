@@ -8,7 +8,7 @@
 @endif
 
 <a href="{{ route('admin.users.create') }}" class="btn btn-success mb-3">+ Thêm mới</a>
-
+<a href="{{ route('admin.users.trash') }}" class="btn btn-danger mb-3">Thùng rác</a>
 <table class="table table-bordered table-hover table-striped">
     <thead class="table-dark">
         <tr>
@@ -38,6 +38,14 @@
                 <a href="{{ route('admin.users.edit', $item->id) }}" class="btn btn-warning btn-sm">
                     <i class="bi bi-pencil-square"></i>
                 </a>
+                <form action="{{ route('admin.users.destroy', $item->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Bạn có chắc muốn xóa?')">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </form>
             </td>
         </tr>
         @empty

@@ -10,7 +10,9 @@
 <a href="{{ route('admin.posts.create') }}" class="btn btn-success mb-3">
     + Thêm mới
 </a>
-
+<a href="{{ route('admin.posts.trash') }}" class="btn btn-danger mb-3">
+    <i class="bi bi-trash"></i> Thùng rác
+</a>
 <table class="table table-bordered table-hover table-striped">
     <thead class="table-dark">
         <tr>

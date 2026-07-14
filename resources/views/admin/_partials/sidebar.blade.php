@@ -155,28 +155,3 @@
         </li>
     </ul>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.admin-sidebar .has-submenu').forEach(function(item) {
-            const toggle = item.querySelector('[data-bs-toggle="collapse"]');
-            const collapse = item.querySelector('.collapse');
-
-            if (!toggle || !collapse) {
-                return;
-            }
-
-            const bsCollapse = bootstrap.Collapse.getOrCreateInstance(collapse, {
-                toggle: false
-            });
-
-            item.addEventListener('mouseenter', function() {
-                bsCollapse.show();
-            });
-
-            item.addEventListener('mouseleave', function() {
-                bsCollapse.hide();
-            });
-        });
-    });
-</script>

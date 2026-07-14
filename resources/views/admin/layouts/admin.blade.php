@@ -16,6 +16,16 @@
     {{-- CDN Bootstrap JavaScript --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
+    <style>
+        .auto-dismiss-alert {
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+
+        .auto-dismiss-alert.is-hiding {
+            opacity: 0;
+            transform: translateY(-8px);
+        }
+    </style>
 
 </head>
 
@@ -49,6 +59,23 @@
 
     {{-- nhúng file preview-image.js --}}
     <script src="{{ asset('js/preview-image.js') }}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.alert').forEach(function(alertEl) {
+                if (alertEl.dataset.autoDismiss === 'false') {
+                    return;
+                }
+
+                setTimeout(function() {
+                    alertEl.classList.add('is-hiding');
+                    setTimeout(function() {
+                        alertEl.style.display = 'none';
+                    }, 300);
+                }, 3000);
+            });
+        });
+    </script>
 </body>
 
 </html>

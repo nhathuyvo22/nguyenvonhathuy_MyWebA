@@ -55,7 +55,7 @@ class UserController extends Controller
     }
 
 
-   
+
 
     public function update(UserRequest $request, string $id)
     {
@@ -76,10 +76,53 @@ class UserController extends Controller
         }
     }
 
+    public function show(string $id)
+    {
+        //
+    }
     public function destroy(string $id)
     {
-        User::find($id)->delete();
-        return redirect()->route('admin.users.index')
-            ->with('success', 'Xóa người dùng thành công');
+        try {
+            $product = User::findOrFail($id);
+            $product->delete();
+
+            return redirect()->route('admin.users.index')
+                ->with('success', 'Xóa nhân viên thành công');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.users.index')
+                ->with('error', 'Xóa nhân viên thất bại');
+        }
+    }
+
+    public function trash()
+    {
+        $list = User::onlyTrashed()
+            ->select('id', 'fullname', 'username', 'email', 'status')
+            ->orderBy('fullname')
+            ->paginate(10);
+
+        return view('admin.users.trash', compact('list'));
+    }
+
+    public function restore($id)
+    {
+        try {
+            User::onlyTrashed()->findOrFail($id)->restore();
+            return redirect()->route('admin.users.trash')
+                ->with('success', 'Khôi phục thành công.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Khôi phục thất bại.');
+        }
+    }
+
+    public function forceDelete($id)
+    {
+        try {
+            User::onlyTrashed()->findOrFail($id)->forceDelete();
+            return redirect()->route('admin.users.trash')
+                ->with('success', 'Xóa vĩnh viễn thành công.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Xóa thất bại.');
+        }
     }
 }

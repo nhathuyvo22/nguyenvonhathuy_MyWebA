@@ -8,7 +8,7 @@
 @endif
 
 <a href="{{ route('admin.products.create') }}" class="btn btn-success mb-3">+ Thêm mới</a>
-
+<a href="{{ route('admin.products.trash') }}" class="btn btn-danger mb-3">Thùng rác</a>
 <table class="table table-bordered table-hover table-striped">
     <thead class="table-dark">
         <tr>

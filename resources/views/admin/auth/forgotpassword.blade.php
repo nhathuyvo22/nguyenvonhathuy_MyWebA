@@ -21,20 +21,20 @@
                         <x-admin.alert />
 
                         <p class="text-muted text-center mb-4">
-                            Nhập tên đăng nhập để reset mật khẩu về mặc định.
+                            Nhập email để nhận mật khẩu mới.
                         </p>
 
                         <form action="{{ route('admin.forgotpass.post') }}" method="POST">
                             @csrf
                             <div class="mb-3">
-                                <label class="form-label">Tên đăng nhập</label>
-                                <input type="text" name="username" class="form-control"
-                                    placeholder="Nhập username" value="{{ old('username') }}">
-                                @error('username')
+                                <label class="form-label">Email</label>
+                                <input type="text" name="email" class="form-control"
+                                    placeholder="Nhập email" value="{{ old('email') }}">
+                                @error('email')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">Reset mật khẩu</button>
+                            <button type="submit" class="btn btn-primary w-100">Gửi mật khẩu mới</button>
                         </form>
 
                     </div>

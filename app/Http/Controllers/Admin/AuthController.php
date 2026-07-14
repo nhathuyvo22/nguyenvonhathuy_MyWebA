@@ -77,30 +77,37 @@ class AuthController extends Controller
     }
 
     // Xử lý quên mật khẩu
+    // Xử lý quên mật khẩu
     public function postForgotPassword(Request $request)
     {
         $request->validate(
             [
-                'username' => 'required|exists:users,username',
+                'email' => 'required|email|exists:users,email',
             ],
             [
                 'required' => ':attribute không được để trống.',
+                'email'    => ':attribute không đúng định dạng.',
                 'exists'   => ':attribute không tồn tại trong hệ thống.',
             ],
             [
-                'username' => 'Tên đăng nhập',
+                'email' => 'Email',
             ]
         );
 
-        $user = User::where('username', $request->username)->first();
+        $user = User::where('email', $request->email)->first();
 
-        // Reset mật khẩu về mặc định
-        $defaultPassword = '123456';
+        // Tạo mật khẩu mới ngẫu nhiên
+        $passRandom = Str::random(10);
+
+        // Mã hóa và lưu vào DB
         $user->update([
-            'password' => Hash::make($defaultPassword),
+            'password' => Hash::make($passRandom),
         ]);
 
-        return back()->with('success', 'Mật khẩu đã được reset về: ' . $defaultPassword);
+        // Gửi email
+        Mail::to($user->email)->send(new ForgotPasswordMail($passRandom));
+
+        return back()->with('success', 'Đã gửi mật khẩu mới. Bạn vui lòng kiểm tra email của bạn.');
     }
     // Hiển thị trang đổi mật khẩu
     public function changePassword()

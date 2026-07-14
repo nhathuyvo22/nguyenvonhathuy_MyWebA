@@ -22,7 +22,7 @@ return new class extends Migration
             $table->tinyInteger('status')->default(1);
             $table->tinyInteger('gender')->default(0);
             $table->date('birthday')->nullable();
-            $table->unsignedTinyInteger('role')->default(0);
+            $table->unsignedTinyInteger('role')->default(2);
             $table->rememberToken();
             $table->timestamps();
         });
