@@ -7,14 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', 'My Web')</title>
 
-    {{-- CDN Bootstrap CSS --}}
+    <!-- {{-- CDN Bootstrap CSS --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
     {{-- CDN Bootstrap Icons --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"> -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    {{-- CDN Bootstrap JavaScript --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    {{-- CDN Bootstrap JavaScript - ĐÃ CHUYỂN QUA VITE, KHÔNG DÙNG NỮA --}}
+    <!-- {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script> --}} -->
 
     <style>
         .auto-dismiss-alert {
@@ -25,6 +26,12 @@
             opacity: 0;
             transform: translateY(-8px);
         }
+
+        /* Cho phép sidebar tự cuộn khi submenu mở ra dài hơn màn hình */
+        .admin-sidebar-col {
+            overflow-y: auto;
+            max-height: 100vh;
+        }
     </style>
 
 </head>
@@ -33,7 +40,7 @@
     <div class="container-fluid">
         <div class="row min-vh-100">
             {{-- SIDEBAR --}}
-            <div class="col-md-2 bg-dark text-white p-0">
+            <div class="col-md-2 bg-dark text-white p-0 admin-sidebar-col">
                 @include('admin._partials.sidebar')
             </div>
 
@@ -56,9 +63,6 @@
             </div>
         </div>
     </div>
-
-    {{-- nhúng file preview-image.js --}}
-    <script src="{{ asset('js/preview-image.js') }}"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

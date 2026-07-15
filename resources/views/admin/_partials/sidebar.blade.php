@@ -1,8 +1,4 @@
 <style>
-    .admin-sidebar .collapse:not(.show) {
-        display: none;
-    }
-
     .admin-sidebar .collapsing {
         height: 0;
         overflow: hidden;
@@ -25,15 +21,15 @@
         </li>
 
         <li class="nav-item has-submenu">
-            <a class="nav-link text-white d-flex justify-content-between align-items-center"
-                href="#categoryMenu"
+            <button type="button"
+                class="nav-link text-white d-flex justify-content-between align-items-center w-100 border-0 bg-transparent text-start"
                 data-bs-toggle="collapse"
-                role="button"
+                data-bs-target="#categoryMenu"
                 aria-expanded="false"
                 aria-controls="categoryMenu">
                 <span><i class="bi bi-tags"></i> Quản lý danh mục</span>
-                <i class="bi bi-chevron-down"></i>
-            </a>
+                <i class="bi bi-chevron-down chevron"></i>
+            </button>
             <div class="collapse" id="categoryMenu">
                 <ul class="nav flex-column ms-3">
                     <li class="nav-item">
@@ -51,15 +47,15 @@
         </li>
 
         <li class="nav-item has-submenu">
-            <a class="nav-link text-white d-flex justify-content-between align-items-center"
-                href="#brandMenu"
+            <button type="button"
+                class="nav-link text-white d-flex justify-content-between align-items-center w-100 border-0 bg-transparent text-start"
                 data-bs-toggle="collapse"
-                role="button"
+                data-bs-target="#brandMenu"
                 aria-expanded="false"
                 aria-controls="brandMenu">
                 <span><i class="bi bi-award"></i> Quản lý thương hiệu</span>
-                <i class="bi bi-chevron-down"></i>
-            </a>
+                <i class="bi bi-chevron-down chevron"></i>
+            </button>
             <div class="collapse" id="brandMenu">
                 <ul class="nav flex-column ms-3">
                     <li class="nav-item">
@@ -77,15 +73,15 @@
         </li>
 
         <li class="nav-item has-submenu">
-            <a class="nav-link text-white d-flex justify-content-between align-items-center"
-                href="#productMenu"
+            <button type="button"
+                class="nav-link text-white d-flex justify-content-between align-items-center w-100 border-0 bg-transparent text-start"
                 data-bs-toggle="collapse"
-                role="button"
+                data-bs-target="#productMenu"
                 aria-expanded="false"
                 aria-controls="productMenu">
                 <span><i class="bi bi-box-seam"></i> Quản lý sản phẩm</span>
-                <i class="bi bi-chevron-down"></i>
-            </a>
+                <i class="bi bi-chevron-down chevron"></i>
+            </button>
             <div class="collapse" id="productMenu">
                 <ul class="nav flex-column ms-3">
                     <li class="nav-item">
@@ -103,15 +99,15 @@
         </li>
 
         <li class="nav-item has-submenu">
-            <a class="nav-link text-white d-flex justify-content-between align-items-center"
-                href="#postMenu"
+            <button type="button"
+                class="nav-link text-white d-flex justify-content-between align-items-center w-100 border-0 bg-transparent text-start"
                 data-bs-toggle="collapse"
-                role="button"
+                data-bs-target="#postMenu"
                 aria-expanded="false"
                 aria-controls="postMenu">
                 <span><i class="bi bi-file-earmark-text"></i> Quản lý bài viết</span>
-                <i class="bi bi-chevron-down"></i>
-            </a>
+                <i class="bi bi-chevron-down chevron"></i>
+            </button>
             <div class="collapse" id="postMenu">
                 <ul class="nav flex-column ms-3">
                     <li class="nav-item">
@@ -129,15 +125,15 @@
         </li>
 
         <li class="nav-item has-submenu">
-            <a class="nav-link text-white d-flex justify-content-between align-items-center"
-                href="#userMenu"
+            <button type="button"
+                class="nav-link text-white d-flex justify-content-between align-items-center w-100 border-0 bg-transparent text-start"
                 data-bs-toggle="collapse"
-                role="button"
+                data-bs-target="#userMenu"
                 aria-expanded="false"
                 aria-controls="userMenu">
                 <span><i class="bi bi-people"></i> Quản lý người dùng</span>
-                <i class="bi bi-chevron-down"></i>
-            </a>
+                <i class="bi bi-chevron-down chevron"></i>
+            </button>
             <div class="collapse" id="userMenu">
                 <ul class="nav flex-column ms-3">
                     <li class="nav-item">
